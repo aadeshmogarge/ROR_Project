@@ -1,0 +1,34 @@
+<h1> Studies <%=link_to 'Add Study' , new_study_path %> </h1>
+<div style="border: 1px solid;">
+  <table>
+    <tbody>
+      <tr>
+        <th> Name </th>
+        <th> Age Limit </th>
+        <th> Drug </th>
+        <th> Phase </th>
+        <th> Symptoms </th>
+      </tr>
+
+
+
+      <% cache @studies do %>
+        <% @studies.each do |study| %>
+          <%= render partial: 'study' , locals: {study: study} %>
+
+        # <tr>
+        #   <td><%= study.name%></td>
+        #   <td><%= study.age_limit%></td>
+        #   <td><%= study.drug%></td>
+        #   <td><%= study.phase%></td>
+        #   <td><%= study.symptoms%></td>
+        # </tr>
+
+        <% end %>
+      <% end %>
+
+
+    </tbody>
+  </table>
+</div>
+ 
