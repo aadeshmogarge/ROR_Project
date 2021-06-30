@@ -1,4 +1,4 @@
-class EnrollmentmailerMailer < ApplicationMailer
+class EnrollmentMailer < ApplicationMailer
 
   def success_enrollment(enrollment, mail_override = 0)
     @enrollment = enrollment
@@ -16,3 +16,8 @@ class EnrollmentmailerMailer < ApplicationMailer
     end
   end
 end
+
+
+# EnrollmentMailer
+
+# EnrollmentmailerMailer
