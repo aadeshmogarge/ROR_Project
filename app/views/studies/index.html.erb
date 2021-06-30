@@ -16,13 +16,7 @@
         <% @studies.each do |study| %>
           <%= render partial: 'study' , locals: {study: study} %>
 
-        # <tr>
-        #   <td><%= study.name%></td>
-        #   <td><%= study.age_limit%></td>
-        #   <td><%= study.drug%></td>
-        #   <td><%= study.phase%></td>
-        #   <td><%= study.symptoms%></td>
-        # </tr>
+        
 
         <% end %>
       <% end %>

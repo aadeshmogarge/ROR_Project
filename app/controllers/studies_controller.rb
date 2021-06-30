@@ -61,6 +61,7 @@ class StudiesController < ApplicationController
 
   def study_params
     params.require(:study).permit(:name, :age_limit, :drug, :phase, :study_group_id, :symptoms)
+    #params.require(:study).permit!
   end
 
 end

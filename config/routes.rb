@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   patch 'update_study/:id' , to: 'studies#update'
 
   get 'active_studies' , to: 'studies#active'
+
+  get 'enrollments/index'
+  get 'enrollments/new'
   
   # This is resourceful route
   resources :studies
@@ -13,6 +16,8 @@ Rails.application.routes.draw do
   #nd
   resources :study_groups
   resources :sites
+  resources :enrollments, except:['show','delete']
+
 
   # If you want to create routes for specific methods then write 
   # resources :studies, only: [:index, :update, :create]

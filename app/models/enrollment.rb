@@ -1,19 +1,57 @@
+# class Enrollment < ApplicationRecord
+#   belongs_to :study
+#   belongs_to :subject
+
+#   after_save :audit_log
+#   def audit_log
+    
+#     Rails.logger.info "We have logged an enrollment"
+#     #AuditLogJob.perform self
+
+#     subject_name, study_name = Subject.name, Study.name
+
+#     file = File.join(File.dirname(__FILE__), 'audit.txt')
+# 	  File.open(file, 'a') { |f| f.puts "A subject named #{subject_name} , enrolled to a Study named #{study_name}" }
+
+#   end
+#   handle_asynchronously :audit_log
+
+
+# end
+
 class Enrollment < ApplicationRecord
   belongs_to :study
   belongs_to :subject
+  validates  :subject_id, uniqueness: true
+  # sidekiq
+  after_save :audit_log, :enrollment_mail #, :audit_new
 
-  after_save :audit_log
+  scope :unsent_emails, -> {where('auto_invitation=0')}
+
   def audit_log
-    
-    Rails.logger.info "We have logged an enrollment"
-    #AuditLogJob.perform self
+    Rails.logger.info "***** inside audit log ******"
+    # AuditLogJob.perform_later self #sidekiq
 
-    subject_name, study_name = Subject.name, Study.name
-
+    study_name, subject_name = study.name, subject.name
     file = File.join(File.dirname(__FILE__), 'audit.txt')
-	  File.open(file, 'a') { |f| f.puts "A subject named #{subject_name} , enrolled to a Study named #{study_name}" }
-
+    File.open(file, 'a') {|f| f.puts "A subject named #{subject_name}, enrolled to a study named #{study_name}"}
   end
-  handle_asynchronously :audit_log
 
+  def audit_new
+    Rails.logger.info "***** inside audit log ******"
+    # AuditLogJob.perform_later self #sidekiq
+
+    study_name, subject_name = study.name, subject.name
+    file = File.join(File.dirname(__FILE__), 'audit.txt')
+    File.open(file, 'a') {|f| f.puts "A subject named AUDIT_NEW"}
+    # Rake::task[task].execute or .invoke
+  end
+
+  def enrollment_mail
+    EnrollmentMailer.delay.success_enrollment(self)
+  end
+
+  handle_asynchronously :audit_log, priority:0
+  # handle_asynchronously :audit_new, priority:-5
+  
 end
