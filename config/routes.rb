@@ -33,7 +33,10 @@ Rails.application.routes.draw do
   resources :enrollments, except:['show','delete']
 
   #newly added
-  resources :subjects, except:['show','delete']
+  resources :subjects, except:['show','delete'] do 
+    get 'feedback', to: 'subjects#feedback'
+    patch 'rating', to: 'subjects#rating'
+  end
 
 
   # If you want to create routes for specific methods then write 

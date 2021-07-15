@@ -1,0 +1,26 @@
+<div class="title-container" style="margin-left: 20px">
+  <h2>Feedback Form</h2>
+</div>
+
+<div class="rating-div">
+  <div class="panel-body">
+  <pre> Hello <b><i><%= @subject.name %></b></i>
+
+        Please provide your feedback
+        <%= form_with(model: @subject, url: subject_rating_path) do |f|%>
+          <p>
+            <b>Rating</b>
+           <%= f.radio_button :rating, 'Happy' %> Happy
+           <%= f.radio_button :rating, 'Neutral' %> Neutral
+           <%= f.radio_button :rating, 'Sad' %> Sad
+            <%#= radio_button_tag :rating, '1' %><%#= label_tag :purpose_feedback, 'Happy' %>
+            <%#= radio_button_tag :rating, '2' %><%#= label_tag :purpose_prayer, 'Neutral' %>
+            <%#= radio_button_tag :rating, '3' %><%#= label_tag :purpose_praise, 'Sad' %>
+            <%= f.submit 'SUBMIT' %>
+          </p>
+        <% end %>
+        Thank you!
+ </pre>
+  </div>
+  <h5><%= link_to 'Go Back', subjects_index_path %></h5>
+</div>

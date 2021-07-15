@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_08_095448) do
+ActiveRecord::Schema.define(version: 2021_07_14_073936) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -106,6 +106,8 @@ ActiveRecord::Schema.define(version: 2021_07_08_095448) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "study_group_id"
     t.boolean "redacted", default: false
+    t.integer "no_of_subjects", default: 0
+    t.string "title"
   end
 
   create_table "studies_subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -128,6 +130,8 @@ ActiveRecord::Schema.define(version: 2021_07_08_095448) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.boolean "active", default: true
+    t.integer "feedback"
+    t.string "rating"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
